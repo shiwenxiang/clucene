@@ -1,0 +1,75 @@
+{
+   python_cmdline_args
+   Memcheck:Param
+   getcwd(buf)
+   fun:getcwd
+   fun:realpath
+   fun:PySys_SetArgv
+   fun:Py_Main
+}
+
+{
+   conditional_jump_uninit_1
+   Memcheck:Cond
+   fun:_dl_relocate_object
+   obj:/lib/i686/libc-2.3.2.so
+   fun:_dl_catch_error
+   fun:_dl_open
+}
+
+{
+   conditional_jump_uninit_2
+   Memcheck:Cond
+   obj:/lib/ld-2.3.2.so
+   obj:/lib/ld-2.3.2.so
+   fun:_dl_map_object
+   obj:/lib/i686/libc-2.3.2.so
+}
+
+{
+   conditional_jump_uninit_3
+   Memcheck:Cond
+   obj:/lib/ld-2.3.2.so
+}
+
+{
+   cond_glibc233_1
+   Memcheck:Cond
+   fun:strchr
+}
+
+{
+   cond_glibc233_2
+   Memcheck:Cond
+   fun:_dl_relocate_object_internal
+   obj:/lib/tls/libc-2.3.3.so
+   fun:_dl_catch_error_internal
+   fun:_dl_open
+}
+
+{
+   cond_glibc233_3
+   Memcheck:Cond
+   fun:strlen
+   obj:/lib/tls/libc-2.3.3.so
+   fun:_dl_catch_error_internal
+   fun:_dl_open
+}
+
+{
+   cond_ld234_1
+   Memcheck:Cond
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+}
+
+{
+   cond_ld234_2
+   Memcheck:Cond
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/tls/libc-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+   fun:_dl_open
+}

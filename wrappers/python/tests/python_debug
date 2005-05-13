@@ -1,0 +1,1 @@
+PYTHONDUMPREFS=1 /opt/py23d/bin/python test.py 2> /root/refs.txt

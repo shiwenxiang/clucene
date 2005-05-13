@@ -1,0 +1,27 @@
+TODO
+----
+
+* Some functions are missing... add these in
+* finish other tests
+* finish other extra query types/filters
+* fix TODO items in code
+* clean up help comments
+
+
+FUTURE UPDATES
+--------------
+
+* More complete .NET managed version
+* Java wrapper (JNI?)
+* Python wrapper
+* German analyzer
+* porter stemmer
+
+EFFICIENCY
+----------
+* Note that performance of debug applications can be slower by an order of ~5.
+* Performance of analyzer seems to be quite bad. Should be able to be sped up alot.
+* Memory Leaks - still quite a few!!!
+* Join functions could be inlined?
+* readString might be able to use non unique more often (reduce string copies)
+* Function for getting documents starting from 100 - therefore first 100 docs would be worthlessly fetchhed.

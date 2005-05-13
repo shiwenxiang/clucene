@@ -1,0 +1,78 @@
+* UTF8 support (Daniel Glassey)
+* fixed FSDirectory create bug
+* set path varialbes to 8192(CL_MAX_DIR) instead of MAX_PATH. Incase directory name is *really* long (Petr Gladkikh).
+* fixed some memoery leaks (Nemorino)
+* added highlighter (Jorge Sabater Redondo)
+* renamed example output binaries to cl_*
+* huge amount of memory and bug fixes (Daniel Glassey)
+* removed _gcvt function requirement
+
+0.8.11
+* changed file release format - .zip with dos line endings, tar.gz with unix line endings
+* made compressed files extract with clucucene-{version}.xx
+* fixed some mistakes in last build
+* changed build/gcc/build file to change mode of bootstrap file before running it
+
+0.8.10
+* fixed FSDirectory deleting bug (Daniel Glassey)
+* added perl wrapper (Peter Dragon)
+* split platform settings into seperate files (Frédéric)
+* made a CLConfig.h file for easy configuration of build
+* fixed MAX_TIME in datefield.h (Joachim Ansorg)
+* _gcvt function replacement (Andi Vajda)
+* removed references to ftime (Andi Vajda)
+* if CLUCENE_LITE is defined, Clucene is compiled with only read only functions (saves 20-30% in compiled byte size)
+* optionally disable special query types - wildcard, range, prefix and fuzzy
+
+0.8.9
+* isSpace, isAlNum,toLower defines, using wide/non-wide where appropriate
+* php wrapper fixed (almost) (pedja)
+* implemented MultiSearch and MultiFieldQueryParser 
+* strdup replacement function (uses new[] instead of malloc)
+* deallocation fixes (Rob Ristroph)
+* analyzer performance improvement (Token class)
+* bug fixes: in StringBuffer
+* bug fix: FSInputStream file permissions set to read only (scribe777)
+* bug fix: Made to compile on RedHat 7.2 (scribe777)
+
+0.8.0
+* Fuzzy queries implemented
+* Made threadsafe. (not tested though)
+* Implemented commit lock.
+* Made better try/finally substitute
+* fixed some memory leaks
+* fixed Peek bug in Reader
+* implemented some unimplemented functions. example: open(char) type, not only open(dir) (in indexreader and index searcher)
+* added search tests - this tests the scorer of each search type
+* Added a DLL 'wrapper'. Allows other languages to use clucene more easily
+* Added a PHP 'wrapper'. Essentially the DLL wrapper in PHP.
+* Using exceptions instead of runtime_errors.
+* Fixed bug: when using a reader to index something, it'll work properly. This bug exists in the java version too.
+* Changed a few interfaces. (eg wideToChar(CONST char) - added const)
+
+0.7.52
+* GCC scripts added and many porting issues resolved
+* Utility program added (in examples). A command line tool for controlling a clucene index.
+
+CLucene license
+===============
+After much debate on the CLucene mailing-list it has been decided that CLucene will continue using the current LGPL license. We thank everyone for their input and agree with those that debate that LGPL is a license for the open source community. Therefore, in order to encourage other OS developers to improve CLucene and to provide a better tool back to the OS community, CLucene will continue to use LGPL as its standard license.
+
+CLucene runs on Linux!
+======================
+Thanks to the efforts of Jimmy Pritts, CLucene now runs on Linux. See the 'INSTALL' file in the doc directory on how to use this tool. Please send feedback, bugs or problems relating to this.
+
+No more binary distributions
+============================
+Sorry, but since CLucene runs on more than one platform, we won't be uploading binary distributions. Does anyone actually need them anyway? Alternatively, if anyone can help set up an automated build & distribute system on the compile farm it would then be possible to efficiently distribute binaries for different platforms.
+
+
+
+0.7.47
+Brought up to date with Lucene.
+DateFilter & DateField implemented
+Wildcard tests & fixes
+
+0.7.45:
+Many memory leak fixes
+ 

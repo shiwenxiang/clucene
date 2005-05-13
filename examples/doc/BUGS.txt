@@ -1,0 +1,6 @@
+* When compiled NOT with unicode, there are a few problems
+* Query: +test^10 returns strange results
+* Indexing many documents returns different files than java version. newsegmentname func is called to many times?
+* Boost query uses float, which is not accurate (2.3 for example could return 2.9999992)
+* Still some memory leaks
+* Memory leak when adding 2 fields of the same name

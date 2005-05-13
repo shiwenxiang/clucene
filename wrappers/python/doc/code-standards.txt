@@ -1,0 +1,80 @@
+I (David Rushby) request that contributors to pyclene adhere to the following code formatting standards.  These standards may seem petty or even pathological, but I've arrived at them after years of experimentation, and I've already invested a large amount of time in pyclene.  If you're unwilling to follow these standards, that's fine, but I don't want your code.
+
+==============
+All languages:
+==============
+  - Try not to exceed 80 columns per line, though the occasional slip is fine.  More than 100 columns is unacceptable, since it's sometimes necessary to edit code on suboptimal displays.
+
+==============
+Python:
+==============
+  - Maintain compatibility with Python 2.3.
+  - 4 spaces per indentation level, except for the last parenthesis in a multiline expression (see below).
+  - No tabs.  Tabs have a way of getting mixed with spaces or replaced by the wrong number of spaces, and this causes big trouble in an indentation-sensitive language such as Python.
+  - Unix-style (\n) newlines, not Windows-style (\r\n) newlines.
+  - CapitalizedCamelCase for class names, with acronyms in all caps.
+      (e.g., "URLRetriever" rather than "UrlRetriever")
+  - initialLowerCamelCase for method and property names.
+      (e.g., "readLong" rather than "ReadLong", "readlong", or "read_long")
+  - Prefer single quotes (') to double quotes ("), except when you need to enclose an apostrophe.
+  - Private members should begin with 1 underscore, rather than 0 or 2.
+  - When comparing an object to None, use the identity operators 'is' and 'is not' rather than the equality operators '==' and '!='.
+  - When testing the boolean value of an object, use 'if x' rather than 'if x is True' or 'if x == True'.
+  - When examining an object's type, use 'isinstance(o, tuple)' rather than 'type(o) is tuple'.  The latter is too brittle.
+  - Don't use 'l' or 'O' as variable names; they're too easy to confuse with '1' and '0'.
+
+  - When a single expression needs to span multiple lines, do not use backslashes unless there's no alternative (there's almost always an alternative).  For example, instead of
+    --------------------------------------------------------------------
+    raise IOError(('Directory "%s" already exists; you must explicitly' \
+        + ' delete it before calling this constructor with' \
+        + ' createIfDoesNotExist=True.') \
+        % directory )
+    --------------------------------------------------------------------
+    use
+    --------------------------------------------------------------------
+    raise IOError('Directory "%s" already exists; you must explicitly'
+        ' delete it before calling this constructor with'
+        ' createIfDoesNotExist=True.'
+        % directory
+      )
+    --------------------------------------------------------------------
+    Since the parentheses in the example above are sufficient to define the extent of the multiline expression for the sake of the Python parser, it's not necessary to use backslashes.
+    Python's string concatenation rules also make the concatenation operators (+) unnecessary in the example above (adjacent string constants are concatenated at compile time).
+    Finally, the trailing parenthesis is placed alone on the last line of the statement, indented half as much as the middle lines.  This arrangement serves two purposes:
+      1. It's easy for the reader's eyes to subconsciously jump from the first line of the statement to the final parenthesis, in order to see how many lines the statement encompasses.  Placing the final parenthesis as it is in the first rendition (at the end of a line containing other code) deprives the reader of this visual cue.
+      2. Editors that fold Python code based on indentation alone (such as jEdit and the many Scintilla-derived editors) will collapse the entire statement into a single fold.  If the parenthesis were placed in the same column as 'raise', these editors would collapse the statement into two lines rather than one.  Collapsability is also the reason I typically avoid triple-quoted multiline string constants.
+         The ability to fold a large file of Python code into just one or two screens, the headers of which identify the major programmatic elements (classes, methods, and blocks), is a huge productivity boost.
+
+==============
+SWIG:
+==============
+  - 2 spaces per indentation level in SWIG directives or embedded C++ code.
+  - 4 spaces per indentation level in embedded Python code.
+  - No tabs.
+  - Unix-style (\n) newlines, not Windows-style (\r\n) newlines.
+  - Macros in UPPER_CASE_WITH_UNDERSCORES.
+  - Constants in UPPER_CASE_WITH_UNDERSCORES.
+
+==============
+C++:
+==============
+  CLucene itself doesn't seem to adhere to any uniform code formatting standards, and I don't have authority over CLucene at large in any case.  If you write C++ code for pyclene, though, please follow these standards:
+
+  - 2 spaces per indentation level.
+  - No tabs.
+  - Place the beginning brace in a block at the end of the line that introduces the block, rather than alone on the line below.
+    THIS:                |  RATHER THAN THIS:
+    --------------------------------------------------------------------
+    if (x) {             |  if (x)
+      doWhatever();      |  {
+    }                    |    doWhatever();
+                         |  }
+    --------------------------------------------------------------------
+
+  - If you're comparing a pointer to NULL, say so explicitly rather than relying on C's boolean context rules.
+    THIS:                |  RATHER THAN THIS:
+    --------------------------------------------------------------------
+    if (x != NULL) {     |  if (x) {
+      delete x;          |    delete x;
+    }                    |  }
+    --------------------------------------------------------------------

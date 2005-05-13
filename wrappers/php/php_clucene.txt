@@ -1,0 +1,13 @@
+Instructions:
+
+* Copy the wrappers/php directory into the ext directory of php.
+* Rename it to clucene
+* Copy clucene.cpp and clucene.h from the wrappers/dll directory into this directory.
+* Copy the 'release' version of the clucene library into ext/php_clucene
+* Compile and run.
+
+Bugs:
+* No m4 compilation script
+* Not binary safe
+* When adding long fields, php sometimes crashes
+* CGI Errors happen quite reguarly... Why?

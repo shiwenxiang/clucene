@@ -1,0 +1,10 @@
+#!/bin/sh
+# Bootstrap the CLucene installation.
+
+mkdir -p ./build/gcc/config
+set -x
+libtoolize --force --copy --ltdl --automake
+aclocal
+autoconf
+autoheader
+automake -a --copy --foreign

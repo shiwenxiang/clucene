@@ -1,0 +1,60 @@
+Linux Port & Build Scripts instructions
+=======================================
+Thanks to Jimmy Pritts <jpritts@sdf.lonestar.org> for this.
+
+CLucene is built both as a shared object and a static library on Linux.  
+I am able to build an index of a large archive of html files and search 
+them with the demo under examples. Tests under examples builds as well 
+but has some runtime problems.  I will defer these until later as they are not
+critical to getting started on Linux.  The problems don't look bad.
+
+The linux source tree mirrors the Windows source tree purposely.
+This was done so that eventually one download can build on both
+OSes.  In fact, this is almost already a reality.  
+
+Requirements
+============
+The port uses GNU autotools.  I have the following versions installed:
+Autoconf 2.57
+Automake 1.72
+Libtool 1.5a
+
+I am using GCC version 3.2.2.  This is important with repsect to the
+autotools as well, because the gcc version affects the way autotools
+calculates dependencies.  
+
+If you use significantly older versions, I can almost guarantee
+issues.  This is because each of the autotools is constantly changing
+with little regard to backward compatability or even compatiability
+with the other autotools.  I can try to assist you if you run into
+problems.  
+
+
+Building
+========
+The following will get you building assuming that you have suffciently
+recent buld tools installed.  
+
+1.) unpack tarball 
+2.) cd into "clucene/build/gcc"
+3.) run "./build"
+4.) things will churn for a very long time, the clucene library will
+be built as well as the examples.
+5.) check /home/your_name/clucene_test/bin and /home/your_name/clucene_test/lib
+
+In bin you should see:
+demo test util
+
+In lib you should see:
+libclucene.so.0.0.0 libclucene.la libclucene.a 
+and symbolic links to these files.
+
+6.) export LD_LIBRARY_PATH=/home/your_name/clucene_test/lib
+7.) run the demo in bin directory
+8.) create tests.store in bin directory, run the tests.  It will fail but
+problems appear to be minor.  I will address these later.
+
+If you made it to 8, then I am very pleased.  Most likely the build
+scripts will need to be tweaked to run on your system, or you will
+have to upgrade.  Shoot me an E-Mail if things turn out to be an
+unmitigated disaster.

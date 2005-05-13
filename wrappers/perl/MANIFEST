@@ -1,0 +1,13 @@
+argv.i          SWIG sub-file for string array handling
+check.pl        Build utility
+clucene.i       SWIG master definition file for CLucene C++ calling interface
+clucene_perl.h  SWIG declarations sub-file for CLucene C++ calling interface
+clucene_test.pl      Test front end in perl for perl module interface to CLucene
+COPYRIGHT
+FulltextSearch-CLucene-1.00.tar.gz	CPAN perl archive to build perl wrapper
+FulltextSearch/CLucene.pm      Perl module to call CLucene C++ wrapper
+INSTALL         Instructions on installation
+Makefile        Build commands
+MANIFEST        This file
+t.c             Test front end in C for CLucene C++ calling interface
+TODO            Work required

@@ -1,0 +1,57 @@
+pyclene includes a test suite based on the standard Python unittest module.  The test suite is located in the 'wrappers/python/tests' directory of the CLucene source tree.
+
+Before attempting to run the test suite, make sure you've built pyclene according to the instructions in 'build.txt' (or have installed a pre-built binary distribution).  Note that you do NOT need to "install" pyclene as described in the "After compilation" section of that document in order to run the test suite.
+
+================
+Basic tests
+================
+
+To run the standard set of verification tests, switch to the 'wrappers/python/tests' directory within the CLucene source tree and issue the command:
+  python test.py
+
+This will run all of the tests (241, as of 2005.01.20) contained in the 'test_*.py' modules within that directory.
+
+The test.py script has a single optional command-line parameter:  the number of times to repeat the test suite before the process exits.  This defaults to 1, and can be specified either as an integer or as 'inf', to repeat infinitely.  The 'inf' option is useful primarily for running the test suite in the same process over an extended period so as to check for memory leaks or insidious memory corruption.  The test program will exit after the first iteration in which at least one test fails.
+
+To run a more limited set of tests, invoke one of the 'test_*.py' modules directly.
+
+If a run of the test suite succeeds, its output will conclude with something like:
+----------------------------------------------------------------------
+Ran 241 tests in 10.313s
+
+OK
+----------------------------------------------------------------------
+
+If there were any failures, unittest will print a summary.
+
+
+Tip:  If you plan to perform extended runs of the test suite and your system has ample RAM, allocate a large ramdisk (128MB or larger) and set the TEST_TEMPDIR environment variable to point to the root directory of the ramdisk.  pyclene's test.py script will create the test indices on the ramdisk, saving your hard drive some wear, and making the tests run faster and generate less heat/noise.  A free ramdisk for the Windows NT family is available at http://www.ramdisk.tk , though it's only stable for ramdisks of 128MB or smaller.  The ramdisk that Microsoft made available in source code form some years ago is very unstable; don't use it.  The Linux kernel has an integrated ramdisk, though I haven't tried it.
+
+
+================
+Extended tests
+================
+
+As of 2005.01.20, there is one "extended" test program, located in 'wrappers/python/tests/progs/pydevbench'.  pydevbench carries with it an archive containing one year of e-mail messages to the python-dev mailing list.  The program uses these test data as the basis for a simple performance test.  pydevbench is entirely self-contained; just run 'python pydevbench.py'.
+
+It is expected that additional "extended" test programs will be added to the 'wrappers/python/tests/progs' directory as the need arises.
+
+======================
+Memory integrity tests
+======================
+
+---------------------
+Debug build of Python
+---------------------
+The basic test runner, 'wrappers/python/tests/test.py', will automatically detect whether it's being run with a debug build of Python that has auditing functionality enabled.  This auditing functionality is described in the 'Misc/SpecialBuilds.txt' file in a Python source distribution.  If the functionality is enabled, the program will print just before it exits a summary of suspicious reference count mismatches.  This report is quite confusing if pyclene was built with SWIG's SWIG_COBJECT_TYPES option; disable that option and rebuild if you want it to make sense.
+
+---------------------
+Valgrind
+---------------------
+Valgrind (http://valgrind.kde.org ) is an x86-Linux memory debugger that loads the target program into a simulated CPU, then audits every memory operation the program performs.
+
+To audit the pyclene test suite with valgrind, invoke the script 'wrappers/python/tests/vg_full.sh'.  Valgrind will load and execute the entire pyclene test suite, then write a report to 'wrappers/python/tests/vgerr.txt'.  This takes some 70-100 times longer than an ordinary run of the test suite.
+
+Python 2.3 and later enable a specialized memory allocator called pymalloc by default, and Valgrind misinterprets pymalloc's memory operations as erroneous.  It is strongly recommended that you rebuild Python, passing the command-line parameter '--without-pymalloc' to Python's 'configure' script.
+
+When interpreting a Valgrind audit report, expect to see some spurious error messages.  Python has no facility for unloading modules, so it is customary for modules to allocate static caches of memory and never release them.  Python 2.3's time module, for example, causes Valgrind to report 591 "definitely lost" bytes resulting from an allocation by the 'inittime' function.  There are a few dozen other entries for blocks of memory listed as "still reachable"; these are not a problem unless they were allocated by CLucene or pyclene.

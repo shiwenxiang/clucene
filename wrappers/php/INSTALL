@@ -1,0 +1,23 @@
+MSVC Instructions
+1. Copy the wrappers/php directory into the ext directory of php.
+2. Rename it to clucene
+3. Copy clucene.cpp and clucene.h from the wrappers/dll directory into this directory.
+4. Build and copy /lib/CLuceneLib.lib (Release_Narrow) version of the clucene library into ext/php_clucene
+5. Compile the Release_narrow version and run.
+Note: Release version should work too, but the narrow (non-unicode) version is much faster.
+
+LINUX Instructions
+1. phpize
+2. ./configure --with-php-config=/usr/local/bin/php-config ...or wherever the php-config script is
+3. make
+4. copy modules/clucene.so to /usr/local/lib/php/extensions/.... or wherever your PHP extensions are
+5. restart apache
+6. dl("clucene.so") at the beginning of your PHP code..
+7. refer to cltest.php for examples of methods and their use
+
+
+Bugs:
+* No m4 compilation script
+* Not binary safe
+* When adding long fields, php sometimes crashes
+* CGI Errors happen quite reguarly... Why?
